@@ -37,7 +37,7 @@ from detectron2.evaluation import (
     verify_results,
 )
 from detectron2.modeling import GeneralizedRCNNWithTTA
-
+from detectron2.data.datasets import register_coco_instances
 
 def build_evaluator(cfg, dataset_name, output_folder=None):
     """
@@ -153,6 +153,8 @@ def main(args):
 
 if __name__ == "__main__":
     args = default_argument_parser().parse_args()
+    register_coco_instances("sim10k_train", {}, "/home/faster_rcnn/tools/datasets/coco/annotations/instances_train2017.json", "/home/faster_rcnn/tools/datasets/coco/train2017")
+    register_coco_instances("sim10k_val", {}, "/home/faster_rcnn/tools/datasets/coco/annotations/instances_val2017.json", "/home/faster_rcnn/tools/datasets/coco/val2017")
     print("Registered META_ARCHes: ", META_ARCH_REGISTRY._obj_map.keys()) #dict_keys(['GeneralizedRCNN', 'ProposalNetwork', 'SemanticSegmentor', 'PanopticFPN', 'RetinaNet'])
     print("Command Line Args:", args)
     launch(
